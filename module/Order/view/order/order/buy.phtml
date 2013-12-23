@@ -1,0 +1,24 @@
+<div class="well">
+    <?php
+    $title = 'Заявка на покупку автомобиля';
+    $this->headTitle($title);
+    ?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+    <?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('order', array(
+        'action' => 'buy',
+        'car_id' => $this->id
+    )));
+    $form->prepare();
+    echo $this->form()->openTag($form) . PHP_EOL;
+    echo $this->formHidden($form->get('car_id')) . PHP_EOL;
+    echo $this->formRow($form->get('first_name')) . PHP_EOL;
+    echo $this->formRow($form->get('second_name')) . PHP_EOL;
+    echo $this->formRow($form->get('email')) . PHP_EOL;
+    echo $this->formRow($form->get('city')) . PHP_EOL;
+    echo $this->formRow($form->get('phone')) . PHP_EOL;
+    echo $this->formInput($form->get('submit')) . PHP_EOL;
+    echo $this->form()->closeTag($form) . PHP_EOL;?>
+</div>
+<a class="btn btn-large car-view-btn" onclick="javascript:history.back();"><?php  echo $this->translate('Назад'); ?></a>

@@ -1,0 +1,21 @@
+<div class="well">
+    <?php
+    $title = 'Удаление автомобиля';
+    $this->headTitle($title);
+    ?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+    <p> <?php echo $this->translate('Вы действительно хотите удалить данную запись "'); ?>
+        <?php foreach ($car as $carOne) : ?>
+            <?php echo $this->escapeHtml($carOne->getBrand()); ?> <?php echo $this->escapeHtml($carOne->getNameModel()); ?>"?
+        <?php endforeach; ?>
+    </p>
+    <?php
+    $url = $this->url('car', array('action' => 'delete', 'id' => $this->id)); ?>
+    <form action="<?php echo $url; ?>" method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo (int)$car->id; ?>"/>
+            <input type="submit" name="del" value="Да" class="btn-large btn-danger"/>
+            <input type="submit" name="del" value="Нет" class="btn-large "/>
+        </div>
+    </form>
+</div>

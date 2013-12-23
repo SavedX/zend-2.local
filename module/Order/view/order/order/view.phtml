@@ -1,0 +1,46 @@
+<?php $title = 'Просмотр заявки';
+$this->headTitle($title);?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<div class="span11 alert ">
+    <?php foreach ($orders as $carOne) : ?>
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Имя</label>
+                <div class="controls order-view"> <?php echo $this->escapeHtml($carOne->getFirstName()); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Фамилия</label>
+                <div class="controls order-view"> <?php echo $this->escapeHtml($carOne->getSecondName()); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">E-mail</label>
+                <div class="controls order-view"> <?php echo $this->escapeHtml($carOne->getEmail()); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Город</label>
+                <div class="controls order-view"> <?php echo $this->escapeHtml($carOne->getCity()); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Телефон</label>
+                <div class="controls order-view"> <?php echo $this->escapeHtml($carOne->getPhone()); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Ссылка на авто</label>
+                <div class="controls order-view"><a href="<?php echo $this->url('car', array('action' => 'view', 'id' => $this->escapeHtml($carOne->getCarId()))) ?>" style="color: #c09853">
+                        <?php  echo $this->translate('Просмотр'); ?></a>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Дата заявки</label>
+                <div class="controls order-view"><?php echo $carOne->getCreatedAt()->format('d-m-Y H:i');?>
+                </div>
+            </div>
+        </form>
+    <?php endforeach; ?>
+</div>
+<a class="btn btn-large car-view-btn" onclick="javascript:history.back();"><?php  echo $this->translate('Назад'); ?></a>

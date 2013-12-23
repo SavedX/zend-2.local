@@ -1,0 +1,22 @@
+<div class="well">
+    <?php
+    $title = 'Добавить новый автомобиль';
+    $this->headTitle($title);?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+    <?php
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('car', array('action' => 'add')));
+    $form->prepare();
+
+    echo $this->form()->openTag($form) . PHP_EOL;
+    echo $this->formRow($form->get('brand')) . PHP_EOL;
+    echo $this->formRow($form->get('name_model')) . PHP_EOL;
+    echo $this->formRow($form->get('detail')) . PHP_EOL;
+    echo $this->formRow($form->get('photo')) . PHP_EOL; ?>
+    </br><?php
+    echo $this->formInput($form->get('submit')) . PHP_EOL;
+    echo $this->form()->closeTag($form) . PHP_EOL;
+    ?>
+</div>
+<a class="btn btn-large car-view-btn" onclick="javascript:history.back();"><?php  echo $this->translate('Назад'); ?></a>

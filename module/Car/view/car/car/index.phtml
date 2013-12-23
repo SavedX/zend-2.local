@@ -1,0 +1,54 @@
+<?php
+$title = 'Автокаталог';
+$this->headTitle($title);?>
+<div class="well pull-right right-block span3">
+    <?php if ($user = $this->identity()) { ?>
+        <div style="margin-left: 40px">Вы вошли как: "<?php echo $this->escapeHtml($user->getUsrName()) ?>"</div>
+        <a class="brand" href="<?php echo $this->url('order', array('action' => 'index')); ?>"><?php echo $this->translate('Заявки') ?></a>
+        <span class="label label-important" style="margin-left: -20px"><?php echo $this->absoluteUrl();?></span>
+        <a style="margin-left: 10px" href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'logout')); ?>">
+            <?php echo $this->translate('Logout'); ?></a>
+    <?php } ?>
+    <?php if (!$user = $this->identity()) { ?>
+        <a class="brand" href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'login')); ?>">
+            <?php echo $this->translate('Login') ?></a>
+    <?php } ?>
+</div>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p><a href="<?php echo $this->url('car', array('action' => 'add')); ?>" class="btn btn-success btn-block car-btn-add">
+        <?php  echo $this->translate('Добавить новое авто'); ?></a></p>
+<?php foreach ($cars as $car) : ?>
+    <div class="span10 well car-box" style="padding-bottom: 5px">
+        <div class="span3" style="margin-left: -5px">
+            <img src="<?php echo $this->escapeHtml($car->getPhoto()) ?>" class="car-photo" style="width: 170px; height: 130px">
+        </div>
+        <div class="span1">
+            <?php echo $this->escapeHtml($car->getBrand()); ?>
+        </div>
+        <div class="span1">
+            <?php echo $this->escapeHtml($car->getNameModel()); ?>
+        </div>
+        <div class="span3 car-view-detail">
+            <?php $str = $this->escapeHtml($car->getDetail());
+            $limit = strlen(mb_substr($str, 0, 100, 'utf8'));
+            $str = mb_substr($str, 0, $limit + 1);
+            echo($str);?>
+        </div>
+        <div class="pull-right manage-font">
+            <a href="<?php echo $this->url('car', array('action' => 'view', 'id' => $this->escapeHtml($car->getCarId()))) ?>"
+                <?php if (!$user = $this->identity()) { ?>  class="btn btn-large btn-primary" <?php }?>
+
+                ><?php  echo $this->translate('Просмотр'); ?></a></br>
+            <?php if ($user = $this->identity()) { ?>
+                <a href="<?php echo $this->url('car', array('action' => 'edit', 'id' => $car->getCarId())) ?>"><?php  echo $this->translate('Редактировать'); ?></a></br>
+            <?php } ?>
+            <?php if ($user = $this->identity()) { ?>
+                <a href="<?php echo $this->url('car', array('action' => 'delete', 'id' => $this->escapeHtml($car->getCarId()))) ?>"><?php  echo $this->translate('Удалить'); ?></a></br>
+            <?php } ?>
+            <a href="<?php echo $this->url('order', array('action' => 'buy', 'id' => $this->escapeHtml($car->getCarId()))) ?>"
+               class="btn btn-large btn-info car-btn-buy"><?php  echo $this->translate('Купить'); ?></a></br>
+            <div style="font-size: 12px;
+             "> <?php echo $car->getCreatedAt()->format('d-m-Y H:i');?></div>
+        </div>
+    </div>
+<?php endforeach; ?>

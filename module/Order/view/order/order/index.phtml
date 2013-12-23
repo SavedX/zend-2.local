@@ -1,0 +1,31 @@
+<?php
+$title = 'Список заявок';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<table class="table alert">
+    <thead>
+    <th>#</th>
+    <th>car_id</th>
+    <th><?php  echo $this->translate('Имя'); ?></th>
+    <th><?php  echo $this->translate('Фамилия'); ?></th>
+    <th><?php  echo $this->translate('Город'); ?></th>
+    <th style="text-align: center"><?php  echo $this->translate('Управление'); ?></th>
+    </thead>
+    <tbody>
+    <?php foreach ($orders as $order) : ?>
+        <tr <?php echo ($this->escapeHtml($order->getIsRead() == 0) ? 'class="order-new"' : 'class="order-read"') ?>>
+            <td> <?php echo $this->escapeHtml($order->getOrderId()); ?></td>
+            <td> <?php echo $this->escapeHtml($order->getCarId()); ?></td>
+            <td> <?php echo $this->escapeHtml($order->getFirstName()); ?></td>
+            <td> <?php echo $this->escapeHtml($order->getSecondName()); ?></td>
+            <td> <?php echo $this->escapeHtml($order->getCity()); ?></td>
+            <td style="text-align: center"> <a href="<?php echo $this->url('order', array('action' => 'view', 'id' => $this->escapeHtml($order->getOrderId()))) ?>">
+                    <?php  echo $this->translate('Просмотр'); ?></a>
+                <a href="<?php echo $this->url('order', array('action' => 'delete', 'id' => $this->escapeHtml($order->getOrderId()))) ?>">
+                    <?php  echo $this->translate('Удалить'); ?></a></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<a class="btn btn-large car-view-btn" onclick="javascript:history.back();"><?php  echo $this->translate('Назад'); ?></a>

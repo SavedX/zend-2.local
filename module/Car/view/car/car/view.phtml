@@ -1,0 +1,26 @@
+<?php $title = 'Просмотр авто';
+$this->headTitle($title);?>
+<div class="span11 well car-view">
+    <?php foreach ($car as $carOne) : ?>
+    <div class="span2">
+        <img src="<?php echo $this->url('home') . $this->escapeHtml($carOne->getPhoto()); ?>" class="car-photo" style="width: 170px; height: 130px">
+    </div>
+    <div class="span1">
+        <?php echo $this->escapeHtml($carOne->getBrand()); ?>
+    </div>
+    <div class="span1">
+        <?php echo $this->escapeHtml($carOne->getNameModel()); ?>
+    </div>
+    <div class="span3 car-view-detail">
+        <?php echo $this->escapeHtml($carOne->getDetail()); ?>
+    </div>
+    <div class="pull-right">
+        <a href="<?php echo $this->url('order', array('action' => 'buy', 'id' => $car->id)); ?>" class="btn btn-large btn-info btn-margin car-view-btns">
+            <?php  echo $this->translate('Купить'); ?></a></br>
+        <?php if ($user = $this->identity()) { ?>
+        <a href="<?php echo $this->url('car', array('action' => 'delete', 'id' => $car->id)); ?>" class="btn btn-danger btn-margin car-view-btns">
+            <?php  echo $this->translate('Удалить'); ?></a> <?php } ?>
+    </div>
+    <?php endforeach; ?>
+</div>
+<a class="btn btn-large car-view-btn" onclick="javascript:history.back();"><?php  echo $this->translate('Назад'); ?></a>

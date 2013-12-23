@@ -1,0 +1,35 @@
+
+<?php
+$title = 'Login';
+$this->headTitle($title);
+echo $this->messages; ?>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'login')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('username'));
+echo $this->formRow($form->get('password'));
+echo $this->formRow($form->get('rememberme'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+
+<?php
+if ($user = $this->identity()) {
+    echo 'Вы вошли как ' . $this->escapeHtml($user->getUsrName());
+    ?>
+    | <a
+        href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'logout')); ?>"><?php echo $this->translate('Logout'); ?></a>
+<?php
+} else {
+    echo $this->translate('Вход не выполнен');
+}
+?>
+<p>
+    <a href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'registration', 'action' => 'index')); ?>"><?php echo $this->translate('Register'); ?></a>
+    |
+    <a href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'registration', 'action' => 'forgotten-password')); ?>"><?php echo $this->translate('Forgotten Password'); ?></a>
+</p>

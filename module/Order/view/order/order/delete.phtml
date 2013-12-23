@@ -1,0 +1,17 @@
+<div class="well">
+    <?php
+    $title = 'Удаление заявки';
+    $this->headTitle($title);
+    ?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+    <p>Вы действительно хотите удалить данную запись?
+    </p>
+    <?php $url = $this->url('order', array('action' => 'delete', 'id' => $this->id)); ?>
+    <form action="<?php echo $url; ?>" method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo (int)$order->id; ?>"/>
+            <input type="submit" name="del" value="Да" class="btn-large btn-danger"/>
+            <input type="submit" name="del" value="Нет" class="btn-large "/>
+        </div>
+    </form>
+</div>
